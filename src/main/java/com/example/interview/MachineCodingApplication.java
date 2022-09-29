@@ -1,81 +1,67 @@
 package com.example.interview;
 
-import com.example.interview.controller.FoodCourtManager;
-import com.example.interview.models.Cuisine;
-import com.example.interview.models.Vendor;
-import com.example.interview.models.Weekday;
-import org.springframework.boot.SpringApplication;
+import com.example.interview.models.Card;
+import com.example.interview.models.Player;
+import com.example.interview.models.Token;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
-/*
-A food court manager wants insights towards the meals sold based on certain requirements.
-Design a system that can handle the below requirements:
 
-The food court has different shops and each shop is assigned to a vendor. The vendor can sell food of different cuisines. Each of the food stalls have separated billing systems that will be linked to the new system to be designed.
-
-Top n cuisines for the food court. (by number of orders/by amount of sales)
-Top n vendors for the food court. (by number of orders/by amount of sales)
-Peak Sales day for the week
-
- */
 @SpringBootApplication
 public class MachineCodingApplication {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(MachineCodingApplication.class, args);
+		SplendorGameManager splendorGameManager = new SplendorGameManager();
 
-		FoodCourtManager foodCourtManager = new FoodCourtManager();
+		Player player = new Player();
+		player.setName("Raj");
+		HashMap<Token,Integer> tokensAvailable = new HashMap<>();
+		tokensAvailable.put(Token.RED,5);
+		tokensAvailable.put(Token.GREEN,5);
+		tokensAvailable.put(Token.BLACK,5);
+		tokensAvailable.put(Token.SILVER,5);
+		player.setAvailableTokens(tokensAvailable);
 
-		foodCourtManager.createAndAddVendor("vendor1");
-		foodCourtManager.createAndAddVendor("vendor2");
-		foodCourtManager.createAndAddVendor("vendor3");
+		Card card = new Card();
+		card.setCardId("cId1");
+		card.setToken(Token.RED);
+		HashMap<Token,Integer> purchaseCombination = new HashMap<>();
+		purchaseCombination.put(Token.RED,3);
+		purchaseCombination.put(Token.GREEN,4);
+		purchaseCombination.put(Token.SILVER,1);
+		card.setPurchaseCombination(purchaseCombination);
 
-		List<String> cuisinies = new ArrayList<>();
-		cuisinies.add("MEXICAN");
-		foodCourtManager.createAndAddFoodShop("foodShop1", cuisinies,1);
-		cuisinies.add("ITALIAN");
-		foodCourtManager.createAndAddFoodShop("foodShop2", cuisinies,2);
-		cuisinies.remove("MEXICAN");
-		foodCourtManager.createAndAddFoodShop("foodShop3", cuisinies,3);
+		Card card2 = new Card();
+		card2.setToken(Token.GREEN);
+		card2.setCardId("cId2");
+		HashMap<Token,Integer> purchaseCombination2 = new HashMap<>();
+		purchaseCombination2.put(Token.RED,2);
+		purchaseCombination2.put(Token.GREEN,1);
+		purchaseCombination2.put(Token.BLUE,6);
+		card2.setPurchaseCombination(purchaseCombination2);
 
-		foodCourtManager.addOrderData(100,"MONDAY",1,"MEXICAN");
-		foodCourtManager.addOrderData(10,"TUESDAY",2,"MEXICAN");
-		foodCourtManager.addOrderData(70,"MONDAY",2,"MEXICAN");
-		foodCourtManager.addOrderData(50,"MONDAY",2,"ITALIAN");
-		foodCourtManager.addOrderData(500,"MONDAY",3,"ITALIAN");
-		foodCourtManager.addOrderData(800,"TUESDAY",3,"ITALIAN");
+		Card card3 = new Card();
+		card3.setToken(Token.BLUE);
+		card3.setCardId("cId3");
+		HashMap<Token,Integer> purchaseCombination3 = new HashMap<>();
+		purchaseCombination3.put(Token.RED,2);
+		purchaseCombination3.put(Token.GREEN,1);
+		purchaseCombination3.put(Token.BLACK,4);
+		card3.setPurchaseCombination(purchaseCombination3);
 
-		Vendor vendor = foodCourtManager.findTopVendor("TOTAL_SALES");
-		System.out.println("Highest SOLD : " +vendor.toString());
+//		System.out.println(splendorGameManager.isCardPurchasableByPlayer(player,card));
 
-		foodCourtManager.addOrderData(8000,"TUESDAY",2,"MEXICAN");
-		vendor = foodCourtManager.findTopVendor("TOTAL_SALES");
-		System.out.println("Highest SOLD : " + vendor.toString());
+		System.out.println(splendorGameManager.purchaseCard(player,card));
+		System.out.println(splendorGameManager.purchaseCard(player,card2));
+		System.out.println(splendorGameManager.purchaseCard(player,card3));
 
-		foodCourtManager.addOrderData(9100,"WEDNESDAY",1,"MEXICAN");
-		vendor = foodCourtManager.findTopVendor("TOTAL_SALES");
-		System.out.println("Highest SOLD : " + vendor.toString());
+		for (Token token : player.getAvailableTokens().keySet())
+			System.out.println(token.toString() + " : " + player.getAvailableTokens().get(token));
 
-		foodCourtManager.addOrderData(8000,"WEDNESDAY",3,"ITALIAN");
-		vendor = foodCourtManager.findTopVendor("TOTAL_ORDERS");
-		System.out.println("Highest Ordered : " + vendor.toString());
-
-		foodCourtManager.addOrderData(10000,"WEDNESDAY",3,"ITALIAN");
-		Cuisine cuisine = foodCourtManager.findTopCuisine("TOTAL_SALES");
-		System.out.println("Highest SOLD : " + cuisine.toString());
-
-		cuisine = foodCourtManager.findTopCuisine("TOTAL_ORDERS");
-		System.out.println("Highest Ordered : " +cuisine.toString());
-
-		Weekday weekday = foodCourtManager.findTopWeekday("TOTAL_SALES");
-		System.out.println("Highest SOLD : " +weekday.toString());
-
-		weekday = foodCourtManager.findTopWeekday("TOTAL_ORDERS");
-		System.out.println("Highest Ordered : " +weekday.toString());
+		for (Token t : player.getPurchasedCards().keySet())
+			System.out.println("Purchased for token : " + t.toString() + " " + player.getPurchasedCards().get(t));
 	}
 
 }
