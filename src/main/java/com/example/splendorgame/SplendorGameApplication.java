@@ -1,15 +1,15 @@
-package com.example.interview;
+package com.example.splendorgame;
 
-import com.example.interview.models.Card;
-import com.example.interview.models.Player;
-import com.example.interview.models.Token;
+import com.example.splendorgame.models.Card;
+import com.example.splendorgame.models.Player;
+import com.example.splendorgame.models.Token;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.util.HashMap;
 
 
 @SpringBootApplication
-public class MachineCodingApplication {
+public class SplendorGameApplication {
 
 	public static void main(String[] args) {
 

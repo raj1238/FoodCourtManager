@@ -1,13 +1,11 @@
-package com.example.interview;
+package com.example.splendorgame;
 
-import com.example.interview.models.Card;
-import com.example.interview.models.Player;
-import com.example.interview.models.Token;
+import com.example.splendorgame.models.Card;
+import com.example.splendorgame.models.Player;
+import com.example.splendorgame.models.Token;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 
 @Service

@@ -1,4 +1,4 @@
-package com.example.interview.models;
+package com.example.splendorgame.models;
 
 import lombok.Data;
 
