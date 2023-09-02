@@ -5,8 +5,8 @@ import com.example.splendorgame.models.Player;
 import com.example.splendorgame.models.Token;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 @Service
 public class SplendorGameManager {
@@ -35,7 +35,7 @@ public class SplendorGameManager {
 
     private Integer nullSafeInt(Integer integer) {
         if(integer==null)
-            return Integer.valueOf(0);
+            return 0;
         return integer;
     }
 
@@ -52,7 +52,7 @@ public class SplendorGameManager {
                     cardsAvailable = nullSafeInt(player.getPurchasedCards().get(token).size());
                 }
 
-                Integer tokensToBeUsed = tokensNeed - cardsAvailable;
+                int tokensToBeUsed = tokensNeed - cardsAvailable;
                 if(tokensToBeUsed<0)
                     tokensToBeUsed = 0;
 
@@ -68,7 +68,7 @@ public class SplendorGameManager {
 
     private void addToPurchasedCards(Player player, Card card) {
         if(player.getPurchasedCards().get((card.getToken()))==null)
-            player.getPurchasedCards().put(card.getToken(), Arrays.asList(card));
+            player.getPurchasedCards().put(card.getToken(), List.of(card));
         else
             player.getPurchasedCards().get(card.getToken()).add(card);
     }

@@ -51,7 +51,10 @@ public class SplendorGameApplication {
 		purchaseCombination3.put(Token.BLACK,4);
 		card3.setPurchaseCombination(purchaseCombination3);
 
-//		System.out.println(splendorGameManager.isCardPurchasableByPlayer(player,card));
+		boolean cardPurchasableByPlayer = splendorGameManager.isCardPurchasableByPlayer(player, card);
+		System.out.println("Card with id : " + card.getCardId() + " is purchasable ? " + cardPurchasableByPlayer);
+
+		System.out.println();
 
 		System.out.println(splendorGameManager.purchaseCard(player,card));
 		System.out.println(splendorGameManager.purchaseCard(player,card2));
